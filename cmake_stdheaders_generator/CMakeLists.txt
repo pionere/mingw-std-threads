@@ -32,10 +32,9 @@ function(generate_mingw_stdthreads_header header_file_name
 
     # Ensure file exists
     if(NOT EXISTS "${mingw_stdthreads_headers_generator_system_header}")
-        message(FATAL_ERROR "<${header_file_name}>'s path not found, "
+        message(WARNING "<${header_file_name}>'s path not found, "
                             "compiler output was:\n${compiler_output}")
-    endif()
-
+    else()
     # Get full path to mingw-stdthreads header
     set(mingw_stdthreads_headers_generator_library_header
         "${mingw_stdthreads_folder}/mingw.${header_file_name}.h")
@@ -47,6 +46,7 @@ function(generate_mingw_stdthreads_header header_file_name
         mingw_stdthreads_headers_generator_library_header)
 
     configure_file("${template_file_path}" "${destination_file_path}")
+    endif()
 endfunction()
 
 if(EXISTS "${MINGW_STDTHREADS_DIR}")
